@@ -10,6 +10,7 @@ const CompanySearchResults = () => {
   const dispatch = useDispatch();
   const jobs = useSelector((state) => state.jobs.content);
   const isLoading = useSelector((state) => state.jobs.isLoading);
+  const errorResult = useSelector((state) => state.jobs);
 
   useEffect(() => {
     dispatch(getJobsData("company", params.company));
@@ -19,12 +20,6 @@ const CompanySearchResults = () => {
   return (
     <Container>
       <Row>
-        {/* <Col className='my-3'>
-          <h1 className='display-4'>Job posting for: {params.company}</h1>
-          {jobs.map((jobData) => (
-            <Job key={jobData._id} data={jobData} />
-          ))}
-        </Col> */}
         {isLoading ? (
           <Col className='my-3'>
             {[...Array(5).keys()].map((key) => (
@@ -36,6 +31,10 @@ const CompanySearchResults = () => {
                 </Card.Body>
               </Card>
             ))}
+          </Col>
+        ) : errorResult ? (
+          <Col xs={10} className='mx-auto mb-5'>
+            <h2>{errorResult.errorRes}</h2>
           </Col>
         ) : (
           <Col className='my-3'>

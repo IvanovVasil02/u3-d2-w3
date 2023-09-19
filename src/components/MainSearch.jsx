@@ -10,6 +10,7 @@ const MainSearch = () => {
   const dispatch = useDispatch();
   const jobs = useSelector((state) => state.jobs.content);
   const isLoading = useSelector((state) => state.jobs.isLoading);
+  const errorResult = useSelector((state) => state.jobs);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,11 +44,15 @@ const MainSearch = () => {
               <Card className='mb-2' key={"placeholder" + key}>
                 <Card.Body>
                   <Placeholder as={Card.Text} animation='glow'>
-                    <Placeholder xs={7} /> <Placeholder xs={4} /> <Placeholder xs={4} /> <Placeholder xs={6} />{" "}
+                    <Placeholder xs={7} /> <Placeholder xs={4} /> <Placeholder xs={4} /> <Placeholder xs={6} />
                   </Placeholder>
                 </Card.Body>
               </Card>
             ))}
+          </Col>
+        ) : errorResult.hasError ? (
+          <Col xs={10} className='mx-auto mb-5'>
+            <h2>{errorResult.errorRes}</h2>
           </Col>
         ) : (
           <Col xs={10} className='mx-auto mb-5'>
